@@ -32,7 +32,7 @@ class Moustache
 	public function render($templateName, $data)
 	{
 		$m = new Mustache_Engine(array(
-			'loader' => new \Mustache_Loader_FilesystemLoader($this->templateDir,array('extension'=>'moustache')),
+			'loader' => new \Mustache_Loader_FilesystemLoader($this->templateDir,array('extension'=>'mustache')),
 			'cache' =>$this->cacheDir
 		));
 
