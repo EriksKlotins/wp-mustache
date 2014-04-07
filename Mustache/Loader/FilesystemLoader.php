@@ -113,6 +113,7 @@ class Mustache_Loader_FilesystemLoader implements Mustache_Loader
     protected function getFileName($name)
     {
         $fileName = $this->baseDir . '/' . $name;
+        //var_dump($fileName);
         if (substr($fileName, 0 - strlen($this->extension)) !== $this->extension) {
             $fileName .= $this->extension;
         }

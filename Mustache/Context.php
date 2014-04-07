@@ -132,18 +132,31 @@ class Mustache_Context
      */
     private function findVariableInStack($id, array $stack)
     {
+
+        $result = '';
         for ($i = count($stack) - 1; $i >= 0; $i--) {
             if (is_object($stack[$i]) && !$stack[$i] instanceof Closure) {
                 if (method_exists($stack[$i], $id)) {
-                    return $stack[$i]->$id();
+                    $result = $stack[$i]->$id();
+                    break;
                 } elseif (isset($stack[$i]->$id)) {
-                    return $stack[$i]->$id;
+                    $result =  $stack[$i]->$id;
+                    break;
                 }
             } elseif (is_array($stack[$i]) && array_key_exists($id, $stack[$i])) {
-                return $stack[$i][$id];
+                $result = $stack[$i][$id];
+                break;
             }
         }
-
-        return '';
+      //  var_dump($id);
+        if ($result == '') //EK
+        {
+           if (class_exists('Localization'))
+           {
+               $result = Localization::__($id, $stack);
+           }
+        }
+        
+        return $result;
     }
 }
